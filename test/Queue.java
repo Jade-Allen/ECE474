@@ -5,7 +5,7 @@ package ece474;
  * Goodrick, Tamassia, Goldwasser
  * Code Fragment 6.9
  * An implementation of a simple Queue interface
- * @author Steven Weigel and Jade Allen
+ * @author Steven Weigel
  * @version 20211012
  * */
 public interface Queue<E> {

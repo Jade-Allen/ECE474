@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package ece474;
 
 import java.io.File;
@@ -7,7 +12,7 @@ import java.util.Scanner;
 
 /**
  *
- * @author Steven Weigel and Jade Allen
+ * @author steve
  */
 public class ECE474 {
 
@@ -79,7 +84,7 @@ public class ECE474 {
         }
         int[] rat = new int[8];
         for (int i = 0; i < 8; i++){
-            rat[i] = -1;
+            rat[i] = 42;
         }
         RS[] rs = new RS[5];
         for (int i = 0; i < 5; i++) {
@@ -90,6 +95,7 @@ public class ECE474 {
         for (int i = 0; i < 5; i++) {
             rs[i].setBusy(false);
         }
+        boolean[] regFull = new boolean[8];
 
         while (iNon[1] >= cycle) { //main loop for cycling
             if (instr.size() > 0) {
@@ -141,6 +147,7 @@ public class ECE474 {
                 if (iSplit[0] == 0 || iSplit[0] == 1) {  //for cycling, checks if opcode is add / sub and sets appropriate cycling value
                     for (int i = 0; i < 3; i++) {
                         if (!rs[i].getBusy()) { //sends instruction to RS if there is an open slot
+                            regFull[iSplit[1]] = true; //destination register is still processiing
                             rs[i].setOp(iSplit[0]);
                             rs[i].setVj(iSplit[2]);
                             rs[i].setVk(iSplit[3]);
@@ -157,6 +164,7 @@ public class ECE474 {
                 if (iSplit[0] == 2) { //same but for multiplication
                     for (int i = 3; i < 5; i++) {
                         if (!rs[i].getBusy()) { //sends instruction to RS if there is an open slot
+                            regFull[iSplit[1]] = true;//destination register is still processiing
                             rs[i].setOp(iSplit[0]);
                             rs[i].setVj(iSplit[2]);
                             rs[i].setVk(iSplit[3]);
@@ -174,6 +182,7 @@ public class ECE474 {
                 if (iSplit[0] == 3) { //same but for division
                     for (int i = 3; i < 5; i++) {
                         if (!rs[i].getBusy()) { //sends instruction to RS if there is an open slot
+                            regFull[iSplit[1]] = true;//destination register is still processiing
                             rs[i].setOp(iSplit[0]);
                             rs[i].setVj(iSplit[2]);
                             rs[i].setVk(iSplit[3]);
@@ -218,12 +227,19 @@ public class ECE474 {
 
             cycle++;
         } //end of cycle loop
-        //Printing table
         System.out.format("+------+--------+------+------+------+------+------+--------+%n");
         System.out.format("|  RS  |  Busy  |  Op  |  VJ  |  VK  |  QJ  |  QK  |  Disp  |%n");
         System.out.format("+------+--------+------+------+------+------+------+--------+%n");
         String leftAlignFormat = "| %-3s |   %-1b  | %-4d | %-4s | %-4s | %-4s | %-4s | %-4s |%n";
         for (int i = 0; i < 5; i++) {
+            String s = "";
+            if (rs[i].getBusy()) {
+                s = "Busy";
+            }
+            if (rs[i].getBusy()) {
+                s = "Free";
+            }
+
             System.out.format(leftAlignFormat, "RS" + i, rs[i].getBusy(), rs[i].getOp(),
                     rs[i].getVj(), rs[i].getVk(), rs[i].getQj(), rs[i].getQk(), rs[i].getDisp());
         }

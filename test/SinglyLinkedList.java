@@ -5,7 +5,7 @@ package ece474;
  * Goodrick, Tamassia, Goldwasser
  * Code Fragment from Lab04-WeigelSJ
  * An implementation of a simple SinglyLinkedList class
- * @author Steven Weigel and Jade Allen
+ * @author Steven Weigel
  * @version 20211012
  * */
 public class SinglyLinkedList<E> {

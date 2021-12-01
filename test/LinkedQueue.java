@@ -5,7 +5,7 @@ package ece474;
  * Goodrick, Tamassia, Goldwasser
  * Code Fragment 6.11
  * An implementation of a simple LinkedQueue class
- * @author Steven Weigel and Jade Allen
+ * @author Steven Weigel
  * @version 20211012
  * */
 public class LinkedQueue<E> implements Queue<E> {
